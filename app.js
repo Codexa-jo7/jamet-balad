@@ -85,7 +85,7 @@ function photo(id){
 function renderMenu(){
  const en=language==='en',labels=en?englishGroups:groups;
  document.querySelector('#tabs').innerHTML=[en?'All Items':'كل الأصناف',...labels].map((label,index)=>'<button type="button" data-category="'+(index-1)+'" aria-pressed="'+(category===index-1)+'" class="'+(category===index-1?'selected':'')+'">'+label+'</button>').join('');
- document.querySelector('#menu-items').innerHTML=raw.map((item,id)=>({item,id})).sort((a,b)=>a.item[2]-b.item[2]).filter(({item})=>category===-1||item[2]===category).map(({item,id})=>`<article class="food-card">${photo(id)}<div class="food-copy"><h3>${itemName(id)}</h3><p>${itemDescription(id)}</p><div class="food-bottom"><strong>${money(item[1])}</strong><button class="add-item" type="button" data-add="${id}" aria-label="${en?'Add':'أضف'} ${itemName(id)}">${en?'Add +':'أضف +'}</button></div></div></article>`).join('');
+ document.querySelector('#menu-items').innerHTML=raw.map((item,id)=>({item,id})).sort((a,b)=>a.item[2]-b.item[2]).filter(({item})=>category===-1||item[2]===category).map(({item,id})=>`<article class="food-card">${photo(id)}<div class="food-copy"><h3>${itemName(id)}</h3><div class="food-bottom"><strong>${money(item[1])}</strong><button class="add-item" type="button" data-add="${id}" aria-label="${en?'Add':'أضف'} ${itemName(id)}">${en?'Add +':'أضف +'}</button></div></div></article>`).join('');
  renderCart();
 }
 function renderCart(){
