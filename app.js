@@ -1,24 +1,49 @@
 const restaurant = {whatsapp:'962797191419',address:'عمّان، شارع الجامعة، مقابل البوابة الرئيسية، بناية رقم 271',maps:'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent('مطعم جمعة بلد عمان شارع الجامعة مقابل البوابة الرئيسية بناية 271')};
 const groups=['شاورما','الوجبات العائلية','زنجر البلد','زرب ومندي','إضافات','الحبة الكاملة'];
 const raw=[['وجبة عادي',2.25,0],['وجبة سوبر',2.75,0],['وجبة دبل',3.40,0],['وجبة دبل مكس',4,0],['وجبة تربل',4.50,0],['وجبة حلبي',3.75,0],['وجبة إيطالي',3.75,0],['ساندويش صغير',.65,0,'عادي / شراك'],['ساندويش كبير',1.20,0],['ساندويش فرنسي',1.50,0],['شاورما عائلية · 32 قطعة',7,1,'بطاطا + كولا لتر + مثومة عادي وحار + مخلل'],['شاورما عائلية · 48 قطعة',11,1,'بطاطا + كولا لتر + مثومة عادي وحار + مخلل'],['شاورما عائلية · 64 قطعة',13,1,'بطاطا + 2 كولا لتر + 3 مثومة عادي + 3 حار + 3 مخلل'],['ساندويش زنجر البلد',1.75,2],['وجبة زنجر البلد',2.75,2],['وجبة زنجر إيطالي',4.50,2],['ساندويش بطاطا فرنسي',1,2],['ربع دجاجة / فخذة مع رز',2.50,3,'لبن + دقوس'],['ربع دجاجة / سفينة مع رز',3,3,'لبن + دقوس'],['نصف دجاجة مع رز',4.25,3,'لبن + دقوس'],['دجاجة كاملة مع رز',8.50,3,'2 لبن + دقوس'],['دجاجة ونصف مع رز',11.50,3,'3 لبن + دقوس'],['دجاجتين مع رز',16,3,'4 لبن + دقوس'],['ربع دجاجة / فخذة بدون رز',1.75,3,'دقوس'],['ربع دجاجة / سفينة بدون رز',2,3,'دقوس'],['نصف دجاجة بدون رز',3.75,3,'دقوس'],['صحن رز بدون دجاج',1.75,3,'دقوس'],['كولا',.30,4],['كولا لتر',.70,4],['ماء',.30,4],['مثومة',.50,4],['مخلل',.50,4],['دبس رمان',.50,4],['شطة',.50,4],['جبنة سائلة',.75,4],['بطاطا صغير',.75,4,'كاتشب'],['بطاطا كبير',1.25,4,'كاتشب']];
-raw.push(['ساندويش عادي (حبة كاملة)',0.80,5,'روابي فرح'],['وجبة عادي (حبة كاملة)',2.75,5,'روابي فرح'],['وجبة سوبر (حبة كاملة)',3.40,5,'روابي فرح'],['وجبة دبل (حبة كاملة)',4.40,5,'روابي فرح'],['وجبة تربل (حبة كاملة)',5.50,5,'روابي فرح']);
+raw.push(['ساندويش عادي (حبة كاملة)',0.80,5,'شاورما برغيف خبز لبناني دائري من القمح الكامل'],['وجبة عادي (حبة كاملة)',2.75,5,'شاورما برغيف خبز لبناني دائري من القمح الكامل'],['وجبة سوبر (حبة كاملة)',3.40,5,'شاورما برغيف خبز لبناني دائري من القمح الكامل'],['وجبة دبل (حبة كاملة)',4.40,5,'شاورما برغيف خبز لبناني دائري من القمح الكامل'],['وجبة تربل (حبة كاملة)',5.50,5,'شاورما برغيف خبز لبناني دائري من القمح الكامل']);
 
 const groupOrder=[0,5,2,1,3,4];
 const orderedGroups=groupOrder.map(id=>groups[id]);groups.splice(0,groups.length,...orderedGroups);
 for(const item of raw)item[2]=groupOrder.indexOf(item[2]);
-const englishNames=["Regular Shawarma Meal","Super Shawarma Meal","Double Shawarma Meal","Double Mix Shawarma Meal","Triple Shawarma Meal","Aleppo-style Shawarma Meal","Italian-style Shawarma Meal","Small Shawarma Sandwich","Large Shawarma Sandwich","French-bread Shawarma Sandwich","Family Shawarma · 32 Pieces","Family Shawarma · 48 Pieces","Family Shawarma · 64 Pieces","Balad Zinger Sandwich","Balad Zinger Meal","Italian-style Zinger Meal","French-bread Fries Sandwich","Quarter Chicken (Thigh) with Rice","Quarter Chicken (Breast) with Rice","Half Chicken with Rice","Whole Chicken with Rice","One and a Half Chickens with Rice","Two Chickens with Rice","Quarter Chicken (Thigh), No Rice","Quarter Chicken (Breast), No Rice","Half Chicken, No Rice","Rice without Chicken","Cola","Cola · 1 L","Water","Garlic Sauce","Pickles","Pomegranate Molasses","Chili Sauce","Cheese Sauce","Small Fries","Large Fries","Regular Sandwich (Al Habba Al Kamla)","Regular Meal (Al Habba Al Kamla)","Super Meal (Al Habba Al Kamla)","Double Meal (Al Habba Al Kamla)","Triple Meal (Al Habba Al Kamla)"];
-const englishNotes={"عادي / شراك":"Regular / shrak bread","بطاطا + كولا لتر + مثومة عادي وحار + مخلل":"Fries + 1 L cola + regular & spicy garlic sauce + pickles","بطاطا + 2 كولا لتر + 3 مثومة عادي + 3 حار + 3 مخلل":"Fries + 2 × 1 L cola + 3 regular & 3 spicy garlic sauces + 3 pickles","لبن + دقوس":"Yogurt + daqoos tomato sauce","2 لبن + دقوس":"2 yogurts + daqoos tomato sauce","3 لبن + دقوس":"3 yogurts + daqoos tomato sauce","4 لبن + دقوس":"4 yogurts + daqoos tomato sauce","دقوس":"Daqoos tomato sauce","كاتشب":"Ketchup","روابي فرح":"Rawabi Farah"};
+const englishNames=["Regular Shawarma Meal","Super Shawarma Meal","Double Shawarma Meal","Double Mix Shawarma Meal","Triple Shawarma Meal","Aleppo-style Shawarma Meal","Italian-style Shawarma Meal","Small Shawarma Sandwich","Large Shawarma Sandwich","French-bread Shawarma Sandwich","Family Shawarma · 32 Pieces","Family Shawarma · 48 Pieces","Family Shawarma · 64 Pieces","Balad Zinger Sandwich","Balad Zinger Meal","Italian-style Zinger Meal","French-bread Fries Sandwich","Quarter Chicken (Thigh) with Rice","Quarter Chicken (Breast) with Rice","Half Chicken with Rice","Whole Chicken with Rice","One and a Half Chickens with Rice","Two Chickens with Rice","Quarter Chicken (Thigh), No Rice","Quarter Chicken (Breast), No Rice","Half Chicken, No Rice","Rice without Chicken","Cola","Cola · 1 L","Water","Garlic Sauce","Pickles","Pomegranate Molasses","Chili Sauce","Cheese Sauce","Small Fries","Large Fries","Regular Sandwich (Whole-wheat Shawarma)","Regular Meal (Whole-wheat Shawarma)","Super Meal (Whole-wheat Shawarma)","Double Meal (Whole-wheat Shawarma)","Triple Meal (Whole-wheat Shawarma)"];
+const englishNotes={"عادي / شراك":"Regular / shrak bread","بطاطا + كولا لتر + مثومة عادي وحار + مخلل":"Fries + 1 L cola + regular & spicy garlic sauce + pickles","بطاطا + 2 كولا لتر + 3 مثومة عادي + 3 حار + 3 مخلل":"Fries + 2 × 1 L cola + 3 regular & 3 spicy garlic sauces + 3 pickles","لبن + دقوس":"Yogurt + daqoos tomato sauce","2 لبن + دقوس":"2 yogurts + daqoos tomato sauce","3 لبن + دقوس":"3 yogurts + daqoos tomato sauce","4 لبن + دقوس":"4 yogurts + daqoos tomato sauce","دقوس":"Daqoos tomato sauce","كاتشب":"Ketchup","شاورما برغيف خبز لبناني دائري من القمح الكامل":"Shawarma in round Lebanese whole-wheat pita bread"};
 const translations=[[".brand>span:last-child","مطعم جمعة بلد<small>طعم البلد… ولمّة أهلها</small>","Jamet Balad<small>Local flavors. Shared moments.</small>"],["nav a[href=\"#menu\"]","المنيو","Menu"],["nav a[href=\"#gathering\"]","لمّة العيلة","Family Meals"],["nav a[href=\"#location\"]","وين تلاقينا","Find Us"],[".hero .eyebrow","ـــ شاورما • زنجر • زرب ومندي","SHAWARMA • ZINGER • ZARB & MANDI"],[".hero h1","اللمّة الحلوة،<br>بدها <em>جمعة بلد.</em>","Good company.<br>Great food.<br><em>Jamet Balad.</em>"],[".hero p","من أول لقمة شاورما لآخر حبّة رز.<br>اختار اللي بتحبّه، وخلّي اللمّة علينا.","From the first bite of shawarma to the last grain of rice.<br>Find your favorite and bring everyone together."],[".hero-actions .primary","تصفّح المنيو <span>↖</span>","Explore the Menu <span>↗</span>"],[".hero-bottom span:first-child","منيو لكل الأذواق","Something for everyone"],[".hero-bottom span:last-child","وجبات فردية وعائلية","Individual & family meals"],[".round-stamp","الطعم اللي<strong>بجمعنا</strong>","Food that<strong>unites us</strong>"],[".ribbon span:nth-child(1)","جمعة ولقمة طيبة","Good food, good company"],[".ribbon span:nth-child(2)","شاورما على الأصول","Shawarma done right"],[".ribbon span:nth-child(3)","للجوع… وللجمعة","Made for sharing"],[".ribbon span:nth-child(4)","جمعة بلد","Jamet Balad"],[".section-heading .eyebrow","منيو جمعة بلد","THE JAMET BALAD MENU"],[".section-heading h2","شو عبالك اليوم؟","What are you craving?"],[".section-heading p","أسعار المنيو المرفق بالدينار الأردني.<br>السعر والتوفّر النهائيان عند تأكيد المطعم.","Prices in Jordanian dinars (JOD).<br>Please confirm prices and availability with the restaurant."],[".family .eyebrow","للصحاب والعيلة","FOR FRIENDS & FAMILY"],[".family h2","كبّر اللمّة.<br><em>والباقي علينا.</em>","Bring everyone.<br><em>We’ll bring the flavor.</em>"],[".family p","32، 48 أو 64 قطعة شاورما، مع البطاطا<br>والمثومة والمخلل. كل واحد إله نصيب.","32, 48 or 64 shawarma pieces, with fries,<br>garlic sauce and pickles. Plenty to share."],["#family-menu","شوف الوجبات العائلية <span>↖</span>","Explore Family Meals <span>↗</span>"],[".family-numbers>span","لمّة صغيرة، طعم كبير","Small gathering, big flavor"],[".family-numbers>strong","32<small>قطعة</small>","32<small>pieces</small>"],[".family-numbers>div>span","وجبة شاورما عائلية","Family shawarma meal"],[".family-numbers b","7.00 <small>د.أ</small>","7.00 <small>JOD</small>"],[".visit .eyebrow","أهلًا باللمّة","COME SAY HELLO"],[".visit h2","مكانك بيناتنا.","There’s a place for you."],[".visit>div>p","زورونا بشارع الجامعة في عمّان.<br>ولأي استفسار، احكوا معنا مباشرة.","Visit us on University Street in Amman.<br>Get in touch with any questions."],[".dark-button","اتصل فينا <span>↖</span>","Call Us <span>↗</span>"],["#address-title","عمّان، شارع الجامعة","Amman, University Street"],["#address-description","مقابل البوابة الرئيسية، بناية رقم 271.","Opposite the main gate, building 271."],["#maps-link","ابحث عن العنوان على خرائط Google ↖","Find the address on Google Maps ↗"],[".contact-numbers a:nth-child(1)","<bdi>0797191419</bdi> · اتصال","<bdi>0797191419</bdi> · Call"],[".contact-numbers a:nth-child(2)","<bdi>0789191419</bdi> · اتصال","<bdi>0789191419</bdi> · Call"],[".contact-numbers a:last-child","تواصل معنا على واتساب ↖","Chat with Us on WhatsApp ↗"],["footer .brand>span:last-child","جمعة بلد<small>الطعم اللي بجمعنا.</small>","Jamet Balad<small>Food that brings us together.</small>"],["footer p","شاورما • زنجر • زرب ومندي","Shawarma • Zinger • Zarb & Mandi"]];
 
-const englishGroups=['Shawarma','Al Habba Al Kamla','Balad Zinger','Family Meals','Zarb & Mandi','Extras'];
+const englishGroups=['Shawarma','Whole-wheat Shawarma','Balad Zinger','Family Meals','Zarb & Mandi','Extras'];
 translations.push(['.social-title','خلّينا على تواصل','Let’s stay connected'],['.review-link .social-label','ذقت اللمّة؟ احكيلنا رأيك','Tasted the joy? Share your story'],['.instagram-link .social-label','إنستغرام','Instagram'],['.facebook-link .social-label','فيسبوك','Facebook']);
 let language='ar', category=-1;
 try { if(localStorage.getItem('jamet-language')==='en') language='en'; } catch {}
+const cart = new Map();
+try {
+ const saved=JSON.parse(localStorage.getItem('jamet-cart')||'[]');
+ if(Array.isArray(saved)) for(const entry of saved) if(Array.isArray(entry)) {
+  const [id,qty]=entry;
+  if(Number.isInteger(id)&&id>=0&&id<raw.length&&Number.isInteger(qty)&&qty>0&&qty<=99)cart.set(id,qty);
+ }
+} catch {}
+const photoTiles=[0,0,0,0,0,0,0,1,1,19,3,3,3,4,5,5,15,6,6,6,6,6,6,7,7,7,8,16,17,18,10,11,12,13,14,9,9,2,2,2,2,2];
+function itemName(id){return language==='en'?englishNames[id]:raw[id][0]}
+function money(value){return value.toFixed(2)+(language==='en'?' JOD':' د.أ')}
+function photo(id){
+ const tile=photoTiles[id],n=tile>=16?2:4,index=tile>=16?tile-16:tile;
+ return `<div class="food-photo ${n===2?'drinks-photo':''}" role="img" aria-label="${itemName(id)}" style="--photo-x:${(index%n)*100/(n-1)}%;--photo-y:${Math.floor(index/n)*100/(n-1)}%"><span class="photo-sticker" aria-hidden="true">جمعة<br>بلد</span></div>`;
+}
 function renderMenu(){
  const en=language==='en',labels=en?englishGroups:groups;
  document.querySelector('#tabs').innerHTML=[en?'All Items':'كل الأصناف',...labels].map((label,index)=>'<button type="button" data-category="'+(index-1)+'" aria-pressed="'+(category===index-1)+'" class="'+(category===index-1?'selected':'')+'">'+label+'</button>').join('');
- document.querySelector('#menu-items').innerHTML=raw.map((item,id)=>({item,id})).sort((a,b)=>a.item[2]-b.item[2]).filter(({item})=>category===-1||item[2]===category).map(({item,id},i)=>'<article class="food-card"><div class="food-top"><span class="item-number">'+String(i+1).padStart(2,'0')+'</span></div><h3>'+(en?englishNames[id]:item[0])+'</h3><p>'+(item[3]?(en?englishNotes[item[3]]:item[3]):labels[item[2]])+'</p><div class="food-bottom"><strong>'+item[1].toFixed(2)+' <small>'+(en?'JOD':'د.أ')+'</small></strong></div></article>').join('');
+ document.querySelector('#menu-items').innerHTML=raw.map((item,id)=>({item,id})).sort((a,b)=>a.item[2]-b.item[2]).filter(({item})=>category===-1||item[2]===category).map(({item,id})=>`<article class="food-card">${photo(id)}<div class="food-copy"><h3>${itemName(id)}</h3><p>${item[3]?(en?englishNotes[item[3]]:item[3]):labels[item[2]]}</p><div class="food-bottom"><strong>${money(item[1])}</strong><button class="add-item" type="button" data-add="${id}" aria-label="${en?'Add':'أضف'} ${itemName(id)}">${en?'Add +':'أضف +'}</button></div></div></article>`).join('');
+ renderCart();
 }
+function renderCart(){
+ const en=language==='en';let count=0,total=0;
+ for(const [id,qty] of cart){count+=qty;total+=Math.round(raw[id][1]*100)*qty;}
+ document.querySelector('#cart-summary').textContent=(en?'Your order':'طلبك')+' · '+count+' · '+money(total/100);
+ document.querySelector('#cart-items').innerHTML=[...cart].map(([id,qty])=>`<div class="cart-row"><div><strong>${itemName(id)}</strong><small>${money(raw[id][1]*qty)}</small></div><div class="quantity"><button type="button" data-change="${id}" data-delta="-1" aria-label="${en?'Decrease':'تقليل'} ${itemName(id)}">−</button><span>${qty}</span><button type="button" data-change="${id}" data-delta="1" aria-label="${en?'Increase':'زيادة'} ${itemName(id)}" ${qty===99?'disabled':''}>+</button></div><button type="button" class="remove-item" data-remove="${id}" aria-label="${en?'Remove':'حذف'} ${itemName(id)}">×</button></div>`).join('')||`<p class="cart-empty">${en?'Choose something delicious from the menu to start your order.':'اختار اللي بتحبّه من المنيو وابدأ طلبك.'}</p>`;
+ document.querySelector('#order-total').textContent=money(total/100);
+ document.querySelector('#send-order').disabled=count===0;
+}
+function saveCart(){try{localStorage.setItem('jamet-cart',JSON.stringify([...cart]))}catch{}renderCart()}
 function setLanguage(){
  const en=language==='en';
  document.documentElement.lang=language; document.documentElement.dir=en?'ltr':'rtl';
@@ -34,6 +59,53 @@ document.querySelector('#language-toggle').addEventListener('click',()=>{languag
 document.querySelector('#tabs').addEventListener('click',e=>{const tab=e.target.closest('[data-category]');if(!tab)return;category=Number(tab.dataset.category);renderMenu();document.querySelector('[data-category="'+category+'"]').focus({preventScroll:true})});
 document.querySelector('#family-menu').addEventListener('click',()=>{category=3;renderMenu()});
 document.querySelector('#maps-link').href=restaurant.maps;
+translations.push(
+ ['#photo-note','صور توضيحية للأصناف؛ حجم الوجبة حسب اختيارك.','Illustrative food images; portion size depends on your selection.'],
+ ['#order-title','طلبك من جمعة بلد','Your Jamet Balad order'],
+ ['#name-label','الاسم (اختياري)','Name (optional)'],
+ ['#method-label','طريقة الاستلام','Order method'],
+ ['#pickup-option','استلام من المطعم','Pickup'],
+ ['#delivery-option','توصيل','Delivery'],
+ ['#address-label','عنوان التوصيل','Delivery address'],
+ ['#notes-label','ملاحظات الطلب (اختياري)','Order notes (optional)'],
+ ['#total-label','مجموع الأصناف','Items subtotal'],
+ ['#order-note','يفتح طلبك على واتساب لتراجعه وترسله. تأكيد التوفّر والتوصيل ورسومه من المطعم.','Review and send your order in WhatsApp. The restaurant confirms availability, delivery and any delivery fees.'],
+ ['#send-order','متابعة الطلب على واتساب ↗','Continue on WhatsApp ↗']
+);
+const orderDialog=document.querySelector('#order-dialog');
+document.querySelector('#open-cart').addEventListener('click',()=>orderDialog.showModal());
+document.querySelector('#close-cart').addEventListener('click',()=>orderDialog.close());
+document.querySelector('#menu-items').addEventListener('click',e=>{
+ const button=e.target.closest('[data-add]');if(!button)return;
+ const id=Number(button.dataset.add);cart.set(id,Math.min(99,(cart.get(id)||0)+1));saveCart();
+ document.querySelector('#cart-feedback').textContent=(language==='en'?'Added: ':'تمت إضافة: ')+itemName(id);
+});
+document.querySelector('#cart-items').addEventListener('click',e=>{
+ const remove=e.target.closest('[data-remove]'),change=e.target.closest('[data-change]');
+ if(remove)cart.delete(Number(remove.dataset.remove));
+ else if(change){const id=Number(change.dataset.change),qty=(cart.get(id)||0)+Number(change.dataset.delta);if(qty<=0)cart.delete(id);else cart.set(id,Math.min(99,qty));}
+ else return;
+ saveCart();
+ const next=change?document.querySelector(`[data-change="${change.dataset.change}"][data-delta="${change.dataset.delta}"]`):null;
+ (next||document.querySelector('#close-cart')).focus();
+});
+document.querySelector('#order-method').addEventListener('change',e=>{
+ const delivery=e.target.value==='delivery';document.querySelector('#address-field').hidden=!delivery;document.querySelector('#order-address').required=delivery;
+});
+document.querySelector('#order-form').action='https://wa.me/'+restaurant.whatsapp;
+document.querySelector('#order-form').addEventListener('submit',e=>{
+ if(!cart.size){e.preventDefault();return;}
+ const en=language==='en',lines=[en?'Hello Jamet Balad! I would like to order:':'مرحبا جمعة بلد، بدي أطلب:'];let cents=0;
+ for(const [id,qty] of cart){lines.push(`${qty} × ${itemName(id)} — ${money(raw[id][1]*qty)}`);cents+=Math.round(raw[id][1]*100)*qty;}
+ lines.push((en?'Items subtotal: ':'مجموع الأصناف: ')+money(cents/100));
+ const name=document.querySelector('#order-name').value.trim(),notes=document.querySelector('#order-notes').value.trim(),delivery=document.querySelector('#order-method').value==='delivery';
+ if(name)lines.push((en?'Name: ':'الاسم: ')+name);
+ lines.push(delivery?(en?'Delivery':'توصيل'):(en?'Pickup from restaurant':'استلام من المطعم'));
+ if(delivery)lines.push((en?'Address: ':'العنوان: ')+document.querySelector('#order-address').value.trim());
+ if(notes)lines.push((en?'Notes: ':'ملاحظات: ')+notes);
+ lines.push(en?'Please confirm availability and final total including any delivery fees.':'يا ريت تأكدوا التوفّر والمجموع النهائي مع رسوم التوصيل إن وجدت.');
+ document.querySelector('#whatsapp-text').value=lines.join('\n');
+});
 setLanguage();
 
 
