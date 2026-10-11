@@ -83,7 +83,7 @@ function photo(id){
  const [sheet,index]=itemPhotos[id],atlas=photoSheets[sheet],cols=atlas.x.length-1;
  const col=index%cols,row=Math.floor(index/cols),left=atlas.x[col]+2,top=atlas.y[row]+2;
  const width=atlas.x[col+1]-left-2,height=atlas.y[row+1]-top-2;
- return `<div class="food-photo" role="img" aria-label="${itemName(id)}" style="background-image:url('assets/menu-${sheet}.png?v=20261011i');background-size:${atlas.width/width*100}% ${atlas.height/height*100}%;--photo-x:${left/(atlas.width-width)*100}%;--photo-y:${top/(atlas.height-height)*100}%"><span class="photo-sticker" aria-hidden="true">جمعة<br>بلد</span></div>`;
+ return `<div class="food-photo" role="img" aria-label="${itemName(id)}" style="background-image:url('assets/menu-${sheet}.png?v=20261011j');background-size:${atlas.width/width*100}% ${atlas.height/height*100}%;--photo-x:${left/(atlas.width-width)*100}%;--photo-y:${top/(atlas.height-height)*100}%"><span class="photo-sticker" aria-hidden="true">جمعة<br>بلد</span></div>`;
 }
 function renderMenu(){
  const en=language==='en',labels=en?englishGroups:groups;
