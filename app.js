@@ -22,17 +22,70 @@ try {
   if(Number.isInteger(id)&&id>=0&&id<raw.length&&Number.isInteger(qty)&&qty>0&&qty<=99)cart.set(id,qty);
  }
 } catch {}
-const photoTiles=[0,0,0,0,0,0,0,1,1,19,3,3,3,4,5,5,15,6,6,6,6,6,6,7,7,7,8,16,17,18,10,11,12,13,14,9,9,2,2,2,2,2];
 function itemName(id){return language==='en'?englishNames[id]:raw[id][0]}
 function money(value){return value.toFixed(2)+(language==='en'?' JOD':' د.أ')}
+// Stable item IDs also identify cart entries. Each menu item has its own photo tile.
+// Explicit image boundaries keep adjacent photographs out of each card.
+const photoSheets = {
+ meals:{width:1374,height:1145,x:[0,458,916,1374],y:[0,366,707,1145]},
+ shawarma:{width:1564,height:1006,x:[0,521,1043,1564],y:[0,491,1006]},
+ sandwiches:{width:1536,height:1024,x:[0,512,1024,1536],y:[0,512,1024]},
+ chicken:{width:1254,height:1254,x:[0,418,836,1254],y:[0,394,795,1254]},
+ 'family-extras':{width:1536,height:1024,x:[0,508,1028,1536],y:[0,514,1024]},
+ 'whole-wheat':{width:1536,height:1024,x:[0,768,1536],y:[0,498,1024]},
+ food:{width:1374,height:1145,x:[0,343,687,1030,1374],y:[0,286,572,858,1145]},
+ drinks:{width:1254,height:1254,x:[0,627,1254],y:[0,627,1254]}
+};
+const itemPhotos = {
+ 0:['shawarma',0],1:['shawarma',1],2:['shawarma',2],3:['shawarma',3],4:['shawarma',4],
+ 5:['shawarma',5],6:['meals',6],14:['meals',7],15:['meals',8],
+ 7:['sandwiches',0],8:['sandwiches',1],9:['sandwiches',2],
+ 13:['sandwiches',3],16:['sandwiches',4],37:['sandwiches',5],
+ 17:['chicken',0],18:['chicken',1],19:['chicken',2],20:['chicken',3],
+ 21:['chicken',4],22:['chicken',5],23:['chicken',6],24:['chicken',7],25:['chicken',8],
+ 10:['family-extras',0],11:['family-extras',1],12:['family-extras',2],
+ 35:['family-extras',3],36:['family-extras',4],27:['family-extras',5],
+ 38:['whole-wheat',0],39:['whole-wheat',1],40:['whole-wheat',2],41:['whole-wheat',3],
+ 26:['food',8],30:['food',10],31:['food',11],32:['food',12],33:['food',13],34:['food',14],
+ 28:['drinks',1],29:['drinks',2]
+};
+const sandwichIds = new Set([7,8,9,13,16,37]);
+const mealSandwichCounts = {38:2,39:3,40:4,41:5};
+const shawarmaPieceCounts = {0:10,1:15,2:20,3:25,4:25};
+const specialDescriptions = {
+ 5:['شاورما بخبز تورتيا مطوي بشكل سداسي ومقطّع مثلثات، مع بطاطا','Shawarma in a hexagonal folded tortilla, cut into triangles, with fries'],
+ 6:['شاورما بخبز إيطالي دائري، مع بطاطا','Shawarma in round Italian bread, with fries'],
+ 7:['شاورما صغيرة بخبز عادي / شراك','Small shawarma in regular / shrak bread'],
+ 8:['شاورما كبيرة بالخبز الرقيق الملفوف','Large shawarma in thin rolled flatbread'],
+ 9:['شاورما بخبز فرنسي','Shawarma in French bread'],
+ 13:['زنجر البلد بخبز ساندويش','Balad zinger in sandwich bread'],
+ 14:['ساندويش زنجر البلد مع بطاطا','Balad zinger sandwich with fries'],
+ 15:['زنجر بخبز إيطالي دائري، مع بطاطا','Zinger in round Italian bread, with fries'],
+ 16:['خبز فرنسي محشي بطاطا','French bread filled with fries'],
+ 26:['رز أبيض وبرتقالي بدون دجاج','White and orange rice without chicken']
+};
+function itemDescription(id){
+ const en=language==='en',item=raw[id];
+ let description=specialDescriptions[id]?.[en?1:0] || (item[3]?(en?englishNotes[item[3]]:item[3]):(en?englishGroups:groups)[item[2]]);
+ if(mealSandwichCounts[id]){
+  const count=mealSandwichCounts[id];
+  const bread=id>=38?(en?'round Lebanese whole-wheat pita bread':'رغيف لبناني دائري من القمح الكامل'):(en?'thin rolled shawarma flatbread':'خبز الشاورما الرقيق الملفوف');
+  description=en?`${count} sandwiches, cut and served with fries · ${bread}`:`${count===2?'ساندويشتان':count+' ساندويشات'} مقطّعة مع بطاطا · ${bread}`;
+ }
+ if(shawarmaPieceCounts[id])description=en?`${shawarmaPieceCounts[id]} shawarma pieces in thin rolled flatbread, with fries`:`${shawarmaPieceCounts[id]} قطعة شاورما بالخبز الرقيق الملفوف، مع بطاطا`;
+ if(id>=17&&id<=25)description=(en?'Red-browned chicken':'دجاج أحمر محمّر')+' · '+(id<=22?(en?'White and orange rice · ':'رز أبيض وبرتقالي · '):'')+description;
+ return description+(sandwichIds.has(id)?(en?' · One sandwich, no side fries':' · ساندويشة واحدة، بدون بطاطا جانبية'):'');
+}
 function photo(id){
- const tile=photoTiles[id],n=tile>=16?2:4,index=tile>=16?tile-16:tile;
- return `<div class="food-photo ${n===2?'drinks-photo':''}" role="img" aria-label="${itemName(id)}" style="--photo-x:${(index%n)*100/(n-1)}%;--photo-y:${Math.floor(index/n)*100/(n-1)}%"><span class="photo-sticker" aria-hidden="true">جمعة<br>بلد</span></div>`;
+ const [sheet,index]=itemPhotos[id],atlas=photoSheets[sheet],cols=atlas.x.length-1;
+ const col=index%cols,row=Math.floor(index/cols),left=atlas.x[col]+2,top=atlas.y[row]+2;
+ const width=atlas.x[col+1]-left-2,height=atlas.y[row+1]-top-2;
+ return `<div class="food-photo" role="img" aria-label="${itemName(id)}" style="background-image:url('assets/menu-${sheet}.png?v=20261011f');background-size:${atlas.width/width*100}% ${atlas.height/height*100}%;--photo-x:${left/(atlas.width-width)*100}%;--photo-y:${top/(atlas.height-height)*100}%"><span class="photo-sticker" aria-hidden="true">جمعة<br>بلد</span></div>`;
 }
 function renderMenu(){
  const en=language==='en',labels=en?englishGroups:groups;
  document.querySelector('#tabs').innerHTML=[en?'All Items':'كل الأصناف',...labels].map((label,index)=>'<button type="button" data-category="'+(index-1)+'" aria-pressed="'+(category===index-1)+'" class="'+(category===index-1?'selected':'')+'">'+label+'</button>').join('');
- document.querySelector('#menu-items').innerHTML=raw.map((item,id)=>({item,id})).sort((a,b)=>a.item[2]-b.item[2]).filter(({item})=>category===-1||item[2]===category).map(({item,id})=>`<article class="food-card">${photo(id)}<div class="food-copy"><h3>${itemName(id)}</h3><p>${item[3]?(en?englishNotes[item[3]]:item[3]):labels[item[2]]}</p><div class="food-bottom"><strong>${money(item[1])}</strong><button class="add-item" type="button" data-add="${id}" aria-label="${en?'Add':'أضف'} ${itemName(id)}">${en?'Add +':'أضف +'}</button></div></div></article>`).join('');
+ document.querySelector('#menu-items').innerHTML=raw.map((item,id)=>({item,id})).sort((a,b)=>a.item[2]-b.item[2]).filter(({item})=>category===-1||item[2]===category).map(({item,id})=>`<article class="food-card">${photo(id)}<div class="food-copy"><h3>${itemName(id)}</h3><p>${itemDescription(id)}</p><div class="food-bottom"><strong>${money(item[1])}</strong><button class="add-item" type="button" data-add="${id}" aria-label="${en?'Add':'أضف'} ${itemName(id)}">${en?'Add +':'أضف +'}</button></div></div></article>`).join('');
  renderCart();
 }
 function renderCart(){
