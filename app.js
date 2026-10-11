@@ -27,6 +27,9 @@ function money(value){return value.toFixed(2)+(language==='en'?' JOD':' د.أ')}
 // Stable item IDs also identify cart entries. Each menu item has its own photo tile.
 // Explicit image boundaries keep adjacent photographs out of each card.
 const photoSheets = {
+ 'leg-rice':{width:1374,height:1145,x:[0,1374],y:[0,1145]},
+ 'leg-only':{width:1374,height:1145,x:[0,1374],y:[0,1145]},
+ 'one-half':{width:1374,height:1145,x:[0,1374],y:[0,1145]},
  meals:{width:1374,height:1145,x:[0,458,916,1374],y:[0,366,707,1145]},
  shawarma:{width:1564,height:1006,x:[0,521,1043,1564],y:[0,491,1006]},
  sandwiches:{width:1536,height:1024,x:[0,512,1024,1536],y:[0,512,1024]},
@@ -41,8 +44,8 @@ const itemPhotos = {
  5:['shawarma',5],6:['meals',6],14:['meals',7],15:['meals',8],
  7:['sandwiches',0],8:['sandwiches',1],9:['sandwiches',2],
  13:['sandwiches',3],16:['sandwiches',4],37:['sandwiches',5],
- 17:['chicken',0],18:['chicken',1],19:['chicken',2],20:['chicken',3],
- 21:['chicken',4],22:['chicken',5],23:['chicken',6],24:['chicken',7],25:['chicken',8],
+ 17:['leg-rice',0],18:['chicken',1],19:['chicken',2],20:['chicken',3],
+ 21:['one-half',0],22:['chicken',5],23:['leg-only',0],24:['chicken',7],25:['chicken',8],
  10:['family-extras',0],11:['family-extras',1],12:['family-extras',2],
  35:['family-extras',3],36:['family-extras',4],27:['family-extras',5],
  38:['whole-wheat',0],39:['whole-wheat',1],40:['whole-wheat',2],41:['whole-wheat',3],
@@ -80,7 +83,7 @@ function photo(id){
  const [sheet,index]=itemPhotos[id],atlas=photoSheets[sheet],cols=atlas.x.length-1;
  const col=index%cols,row=Math.floor(index/cols),left=atlas.x[col]+2,top=atlas.y[row]+2;
  const width=atlas.x[col+1]-left-2,height=atlas.y[row+1]-top-2;
- return `<div class="food-photo" role="img" aria-label="${itemName(id)}" style="background-image:url('assets/menu-${sheet}.png?v=20261011h');background-size:${atlas.width/width*100}% ${atlas.height/height*100}%;--photo-x:${left/(atlas.width-width)*100}%;--photo-y:${top/(atlas.height-height)*100}%"><span class="photo-sticker" aria-hidden="true">جمعة<br>بلد</span></div>`;
+ return `<div class="food-photo" role="img" aria-label="${itemName(id)}" style="background-image:url('assets/menu-${sheet}.png?v=20261011i');background-size:${atlas.width/width*100}% ${atlas.height/height*100}%;--photo-x:${left/(atlas.width-width)*100}%;--photo-y:${top/(atlas.height-height)*100}%"><span class="photo-sticker" aria-hidden="true">جمعة<br>بلد</span></div>`;
 }
 function renderMenu(){
  const en=language==='en',labels=en?englishGroups:groups;
