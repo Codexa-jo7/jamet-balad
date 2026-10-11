@@ -151,15 +151,17 @@ document.querySelector('#order-method').addEventListener('change',e=>{
 document.querySelector('#order-form').action='https://wa.me/'+restaurant.whatsapp;
 document.querySelector('#order-form').addEventListener('submit',e=>{
  if(!cart.size){e.preventDefault();return;}
- const en=language==='en',lines=[en?'Hello Jamet Balad! I would like to order:':'مرحبا جمعة بلد، بدي أطلب:'];let cents=0;
- for(const [id,qty] of cart){lines.push(`${qty} × ${itemName(id)} — ${money(raw[id][1]*qty)}`);cents+=Math.round(raw[id][1]*100)*qty;}
- lines.push((en?'Items subtotal: ':'مجموع الأصناف: ')+money(cents/100));
+ // Restaurant-facing messages always use Arabic, independently of the menu language.
+ const orderMoney=value=>value.toFixed(2)+' د.أ';
+ const lines=['مرحبا جمعة بلد، بدي أطلب:'];let cents=0;
+ for(const [id,qty] of cart){lines.push(`${qty} × ${raw[id][0]} — ${orderMoney(raw[id][1]*qty)}`);cents+=Math.round(raw[id][1]*100)*qty;}
+ lines.push('مجموع الأصناف: '+orderMoney(cents/100));
  const name=document.querySelector('#order-name').value.trim(),notes=document.querySelector('#order-notes').value.trim(),delivery=document.querySelector('#order-method').value==='delivery';
- if(name)lines.push((en?'Name: ':'الاسم: ')+name);
- lines.push(delivery?(en?'Delivery':'توصيل'):(en?'Pickup from restaurant':'استلام من المطعم'));
- if(delivery)lines.push((en?'Address: ':'العنوان: ')+document.querySelector('#order-address').value.trim());
- if(notes)lines.push((en?'Notes: ':'ملاحظات: ')+notes);
- lines.push(en?'Please confirm availability and final total including any delivery fees.':'يا ريت تأكدوا التوفّر والمجموع النهائي مع رسوم التوصيل إن وجدت.');
+ if(name)lines.push('الاسم: '+name);
+ lines.push(delivery?'توصيل':'استلام من المطعم');
+ if(delivery)lines.push('العنوان: '+document.querySelector('#order-address').value.trim());
+ if(notes)lines.push('ملاحظات: '+notes);
+ lines.push('يا ريت تأكدوا التوفّر والمجموع النهائي مع رسوم التوصيل إن وجدت.');
  document.querySelector('#whatsapp-text').value=lines.join('\n');
 });
 setLanguage();
